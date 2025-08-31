@@ -13,6 +13,7 @@ export interface Room {
 	id: string;
 	createdBy: string;
 	createdAt: Date;
+	gameMode: 'CLASSIC' | 'EXTENDED';
 	status: 'WAITING' | 'READY' | 'PLAYING' | 'FINISHED';
 	players: User[];
 	currentMatch?: Match;

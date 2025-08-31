@@ -54,6 +54,7 @@ class WebSocketService {
 		});
 
 		this.socket.on('room-updated', (data: { room: Room }) => {
+			this.store.setGameMode(data.room.gameMode);
 			this.store.setRoom(data.room);
 		});
 
@@ -69,6 +70,7 @@ class WebSocketService {
 
 		this.socket.on('game-started', (data: { match: Match }) => {
 			this.store.setMatch(data.match);
+			this.store.setGameMode(data.match.gameMode);
 			this.store.playAgain();
 			toast.success('Jogo iniciado! Faça sua escolha!');
 		});
@@ -139,7 +141,8 @@ class WebSocketService {
 
 	private async attemptReconnect(room: Room, user: User) {
 		try {
-			const socketUrl = `http://localhost:3333`;
+			const socketUrl =
+				import.meta.env.VITE_API_BASE_URL || 'http://localhost:3333';
 			await this.connect(socketUrl);
 			this.joinRoom(room.id, user.id);
 			toast.success('Reconectado!');

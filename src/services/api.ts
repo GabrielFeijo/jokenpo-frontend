@@ -11,8 +11,7 @@ import {
 } from '../types/game';
 
 const API_BASE_URL =
-	// import.meta.env.VITE_API_BASE_URL || 'http://localhost:3333';
-	'http://localhost:3333';
+	import.meta.env.VITE_API_BASE_URL || 'http://localhost:3333';
 
 const api = axios.create({
 	baseURL: `${API_BASE_URL}/api`,
