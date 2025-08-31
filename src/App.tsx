@@ -30,16 +30,16 @@ const App: React.FC = () => {
 			<Router>
 				<div className="min-h-screen">
 					<Routes>
-						<Route
-							path="/"
-							element={
-								currentRoom ? <Navigate to="/game" replace /> : <LobbyScreen />
-							}
-						/>
+						<Route path="/" element={<LobbyScreen />} />
+						<Route path="/game/:roomCode" element={<GameScreen />} />
 						<Route
 							path="/game"
 							element={
-								currentRoom ? <GameScreen /> : <Navigate to="/" replace />
+								currentRoom ? (
+									<Navigate to={`/game/${currentRoom.inviteCode}`} replace />
+								) : (
+									<Navigate to="/" replace />
+								)
 							}
 						/>
 						<Route path="/dashboard" element={<Dashboard />} />

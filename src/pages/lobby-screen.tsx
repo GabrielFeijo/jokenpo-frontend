@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
 import {
 	useCreateRoom,
@@ -10,6 +11,7 @@ import { Users, Plus, LogIn, Gamepad2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 const LobbyScreen: React.FC = () => {
+	const navigate = useNavigate();
 	const [mode, setMode] = useState<'menu' | 'create' | 'join'>('menu');
 	const [roomCode, setRoomCode] = useState('');
 	const [gameMode, setGameMode] = useState<'CLASSIC' | 'EXTENDED'>('CLASSIC');
@@ -26,10 +28,10 @@ const LobbyScreen: React.FC = () => {
 	const joinRoomMutation = useJoinRoom();
 
 	useEffect(() => {
-		if (!currentUser) {
+		if (!currentUser && !createGuestMutation.isPending) {
 			createGuestMutation.mutate();
 		}
-	}, []);
+	}, [currentUser, createGuestMutation.isPending]);
 
 	const handleCreateRoom = async () => {
 		if (!currentUser) {
@@ -43,10 +45,16 @@ const LobbyScreen: React.FC = () => {
 
 		setStoreGameMode(gameMode);
 
-		createRoomMutation.mutate({
-			gameMode,
-			userId: currentUser.id,
-		});
+		try {
+			const response = await createRoomMutation.mutateAsync({
+				gameMode,
+				userId: currentUser.id,
+			});
+
+			navigate(`/game/${response.room.inviteCode}`, { replace: true });
+		} catch (error) {
+			console.error('Erro ao criar sala:', error);
+		}
 	};
 
 	const handleJoinRoom = async () => {
@@ -64,10 +72,16 @@ const LobbyScreen: React.FC = () => {
 			setUser({ ...currentUser, name: playerName.trim() });
 		}
 
-		joinRoomMutation.mutate({
-			roomId: roomCode.trim().toUpperCase(),
-			userId: currentUser.id,
-		});
+		try {
+			const response = await joinRoomMutation.mutateAsync({
+				roomId: roomCode.trim().toUpperCase(),
+				userId: currentUser.id,
+			});
+
+			navigate(`/game/${response.room.inviteCode}`, { replace: true });
+		} catch (error) {
+			console.error('Erro ao entrar na sala:', error);
+		}
 	};
 
 	const renderMainMenu = () => (
@@ -108,6 +122,16 @@ const LobbyScreen: React.FC = () => {
 				>
 					<LogIn size={20} />
 					<span>Entrar em Sala</span>
+				</motion.button>
+
+				<motion.button
+					whileHover={{ scale: 1.02 }}
+					whileTap={{ scale: 0.98 }}
+					onClick={() => navigate('/dashboard')}
+					className="flex w-full items-center justify-center space-x-3 rounded-lg border-2 border-header-outline p-4 font-semibold text-white transition-colors duration-200 hover:bg-white hover:text-dark-text"
+				>
+					<Gamepad2 size={20} />
+					<span>Dashboard</span>
 				</motion.button>
 			</div>
 		</motion.div>

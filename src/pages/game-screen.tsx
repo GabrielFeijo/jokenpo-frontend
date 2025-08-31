@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
+import { useGameRecovery } from '../hooks/useGameRecovery';
 import { wsService } from '../services/websocket';
 import { Choice } from '../types/game';
 import { toast } from 'sonner';
 import ChoiceButton from '@/components/choice-button';
 
 const GameScreen: React.FC = () => {
+	const navigate = useNavigate();
 	const {
 		currentUser,
 		currentRoom,
@@ -22,7 +25,10 @@ const GameScreen: React.FC = () => {
 		setMyChoice,
 		setShowRules,
 		playAgain,
+		resetGame,
 	} = useGameStore();
+
+	const { isRecovering, recoveryError } = useGameRecovery();
 
 	const [gamePhase, setGamePhase] = useState<
 		'waiting' | 'choosing' | 'revealing' | 'result'
@@ -72,6 +78,58 @@ const GameScreen: React.FC = () => {
 		setGamePhase('choosing');
 	};
 
+	const handleLeaveGame = () => {
+		if (currentUser && currentRoom) {
+			wsService.leaveRoom(currentRoom.id, currentUser.id);
+		}
+		resetGame();
+		navigate('/', { replace: true });
+	};
+
+	if (isRecovering) {
+		return (
+			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-bg-from to-bg-to">
+				<div className="text-center text-white">
+					<div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-white border-t-transparent"></div>
+					<p className="text-lg">Recuperando estado do jogo...</p>
+				</div>
+			</div>
+		);
+	}
+
+	if (recoveryError) {
+		return (
+			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-bg-from to-bg-to">
+				<div className="max-w-md text-center text-white">
+					<p className="mb-4 text-lg">Erro ao recuperar jogo</p>
+					<p className="mb-6 text-sm opacity-75">{recoveryError}</p>
+					<button
+						onClick={() => handleLeaveGame()}
+						className="rounded-lg bg-white px-6 py-3 font-semibold text-dark-text transition-colors duration-200 hover:bg-gray-100"
+					>
+						Voltar ao Lobby
+					</button>
+				</div>
+			</div>
+		);
+	}
+
+	if (!currentRoom) {
+		return (
+			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-bg-from to-bg-to">
+				<div className="text-center text-white">
+					<p className="mb-4 text-lg">Sala não encontrada</p>
+					<button
+						onClick={() => handleLeaveGame()}
+						className="rounded-lg bg-white px-6 py-3 font-semibold text-dark-text transition-colors duration-200 hover:bg-gray-100"
+					>
+						Voltar ao Lobby
+					</button>
+				</div>
+			</div>
+		);
+	}
+
 	const renderWaitingScreen = () => (
 		<div className="space-y-8 text-center">
 			<div className="text-xl font-semibold text-white md:text-2xl">
@@ -83,6 +141,9 @@ const GameScreen: React.FC = () => {
 							<span className="ml-2 font-bold text-yellow-300">
 								{currentRoom.inviteCode}
 							</span>
+						</div>
+						<div className="text-xs opacity-60">
+							Ou compartilhe o link: {window.location.href}
 						</div>
 					</div>
 				) : (
@@ -292,7 +353,17 @@ const GameScreen: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="fixed bottom-8 right-8">
+			{/* Botões de ação */}
+			<div className="fixed bottom-8 left-4 right-4 flex justify-between">
+				<motion.button
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					onClick={handleLeaveGame}
+					className="rounded-lg border-2 border-red-500 bg-red-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-red-600"
+				>
+					Sair
+				</motion.button>
+
 				<motion.button
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
@@ -373,6 +444,9 @@ const GameScreen: React.FC = () => {
 					<div>Sala: {currentRoom?.inviteCode}</div>
 					<div>Jogadores: {currentRoom?.players.length}/2</div>
 					{opponentPlayer && <div>Vs: {opponentPlayer.name || 'Jogador'}</div>}
+					<div className="mt-1 text-xs opacity-75">
+						Modo: {gameMode === 'CLASSIC' ? 'Clássico' : 'Estendido'}
+					</div>
 				</div>
 			)}
 		</div>

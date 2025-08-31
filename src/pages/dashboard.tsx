@@ -329,8 +329,8 @@ const Dashboard: React.FC = () => {
 									className="w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
 								>
 									<option value="">Todos</option>
-									<option value="classic">Clássico</option>
-									<option value="extended">Estendido</option>
+									<option value="CLASSIC">Clássico</option>
+									<option value="EXTENDED">Estendido</option>
 								</select>
 							</div>
 
