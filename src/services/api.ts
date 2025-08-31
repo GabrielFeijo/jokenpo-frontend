@@ -42,6 +42,11 @@ export const apiService = {
 		return response.data;
 	},
 
+	getRoomByInviteCode: async (inviteCode: string): Promise<Room> => {
+		const response = await api.get(`/rooms/invite/${inviteCode}`);
+		return response.data;
+	},
+
 	getUserStats: async (userId: string): Promise<GetStatsResponse> => {
 		const response = await api.get(`/stats/user/${userId}`);
 		return response.data;
@@ -59,7 +64,7 @@ export const apiService = {
 		total: number;
 		hasMore: boolean;
 	}> => {
-		const response = await api.get('/dashboard', { params: filters });
+		const response = await api.get('/stats/dashboard', { params: filters });
 		return response.data;
 	},
 

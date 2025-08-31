@@ -98,6 +98,17 @@ class WebSocketService {
 
 		this.socket.on('disconnect', (reason) => {
 			console.warn('⚠️ Socket desconectado:', reason);
+
+			if (reason === 'io server disconnect') {
+				toast.error('Conexão perdida com o servidor');
+			} else {
+				setTimeout(() => {
+					const { currentRoom, currentUser } = useGameStore.getState();
+					if (currentRoom && currentUser) {
+						this.attemptReconnect(currentRoom, currentUser);
+					}
+				}, 2000);
+			}
 		});
 
 		this.socket.on('error', (err) => {
@@ -126,6 +137,18 @@ class WebSocketService {
 		});
 	}
 
+	private async attemptReconnect(room: Room, user: User) {
+		try {
+			const socketUrl = `http://localhost:3333`;
+			await this.connect(socketUrl);
+			this.joinRoom(room.id, user.id);
+			toast.success('Reconectado!');
+		} catch (error) {
+			console.error('Erro na reconexão:', error);
+			toast.error('Falha ao reconectar. Tente recarregar a página.');
+		}
+	}
+
 	private handleRoundResult(result: MatchResult) {
 		const { currentUser } = useGameStore.getState();
 		if (!currentUser) return;
@@ -138,11 +161,10 @@ class WebSocketService {
 			this.store.updateScore(1);
 		} else {
 			gameResult = 'LOSE';
-			this.store.updateScore(-1);
+			this.store.updateScore(0);
 		}
 
 		this.store.setGameResult(gameResult);
-
 		this.store.setAnimating(true);
 
 		setTimeout(() => {
