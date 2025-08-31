@@ -32,18 +32,6 @@ export const useCreateRoom = () => {
 		mutationFn: (data: CreateRoomRequest) => apiService.createRoom(data),
 		onSuccess: async (response) => {
 			setRoom(response.room);
-
-			try {
-				await wsService.connect(response.socketUrl);
-
-				if (response.room.createdBy) {
-					wsService.joinRoom(response.room.id, response.room.createdBy);
-				}
-			} catch (error) {
-				console.error('Failed to connect to WebSocket:', error);
-				toast.error('Erro ao conectar com o servidor');
-			}
-
 			queryClient.invalidateQueries({ queryKey: ['rooms'] });
 		},
 		onError: (error) => {
