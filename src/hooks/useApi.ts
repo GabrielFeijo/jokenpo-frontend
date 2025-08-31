@@ -4,6 +4,7 @@ import {
 	CreateRoomRequest,
 	DashboardFilters,
 	JoinRoomRequest,
+	User,
 } from '../types/game';
 import { apiService } from '../services/api';
 import { toast } from 'sonner';
@@ -20,6 +21,24 @@ export const useCreateGuestUser = () => {
 		onError: (error) => {
 			console.error('Failed to create guest user:', error);
 			toast.error('Erro ao criar usuário. Tente novamente.');
+		},
+	});
+};
+
+export const useUpdateUser = () => {
+	const setUser = useGameStore((state) => state.setUser);
+
+	return useMutation({
+		mutationFn: (data: Partial<User>) => {
+			const { id, ...rest } = data;
+			return apiService.updateUser(id!, rest);
+		},
+		onSuccess: (user) => {
+			setUser(user);
+		},
+		onError: (error) => {
+			console.error('Failed to update user:', error);
+			toast.error('Erro ao atualizar usuário. Tente novamente.');
 		},
 	});
 };

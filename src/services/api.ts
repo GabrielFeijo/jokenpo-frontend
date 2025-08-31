@@ -27,6 +27,11 @@ export const apiService = {
 		return response.data;
 	},
 
+	updateUser: async (id: string, data: Partial<User>): Promise<User> => {
+		const response = await api.patch(`/users/${id}`, data);
+		return response.data;
+	},
+
 	createRoom: async (data: CreateRoomRequest): Promise<CreateRoomResponse> => {
 		const response = await api.post('/rooms', data);
 		return response.data;

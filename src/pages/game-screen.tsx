@@ -161,11 +161,10 @@ const GameScreen: React.FC = () => {
 								whileTap={{ scale: 0.95 }}
 								onClick={handleReadyClick}
 								disabled={isReady}
-								className={`rounded-lg px-8 py-3 font-semibold text-dark-text ${
-									isReady
+								className={`rounded-lg px-8 py-3 font-semibold text-dark-text ${isReady
 										? 'cursor-not-allowed bg-green-400'
 										: 'bg-white hover:bg-gray-100'
-								} transition-colors duration-200`}
+									} transition-colors duration-200`}
 							>
 								{isReady ? '✓ Pronto!' : 'Estou Pronto'}
 							</motion.button>
@@ -195,11 +194,10 @@ const GameScreen: React.FC = () => {
 			</div>
 
 			<div
-				className={`grid justify-items-center gap-8 ${
-					gameMode === 'CLASSIC'
+				className={`grid justify-items-center gap-8 ${gameMode === 'CLASSIC'
 						? 'grid-cols-2 md:grid-cols-3'
 						: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
-				} `}
+					} `}
 			>
 				{choices.map((choice) => (
 					<ChoiceButton
@@ -234,7 +232,7 @@ const GameScreen: React.FC = () => {
 						{myChoice && (
 							<ChoiceButton
 								choice={myChoice}
-								onClick={() => {}}
+								onClick={() => { }}
 								disabled={true}
 								size="large"
 							/>
@@ -250,7 +248,7 @@ const GameScreen: React.FC = () => {
 						{opponentChoice ? (
 							<ChoiceButton
 								choice={opponentChoice}
-								onClick={() => {}}
+								onClick={() => { }}
 								disabled={true}
 								size="large"
 							/>

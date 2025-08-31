@@ -6,6 +6,7 @@ import {
 	useCreateRoom,
 	useJoinRoom,
 	useCreateGuestUser,
+	useUpdateUser,
 } from '../hooks/useApi';
 import { Users, Plus, LogIn, Gamepad2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -24,6 +25,7 @@ const LobbyScreen: React.FC = () => {
 	} = useGameStore();
 
 	const createGuestMutation = useCreateGuestUser();
+	const updateUserMutation = useUpdateUser();
 	const createRoomMutation = useCreateRoom();
 	const joinRoomMutation = useJoinRoom();
 
@@ -41,6 +43,7 @@ const LobbyScreen: React.FC = () => {
 
 		if (playerName.trim()) {
 			setUser({ ...currentUser, name: playerName.trim() });
+			updateUserMutation.mutateAsync({ id: currentUser.id, name: playerName.trim() });
 		}
 
 		setStoreGameMode(gameMode);
@@ -70,6 +73,7 @@ const LobbyScreen: React.FC = () => {
 
 		if (playerName.trim()) {
 			setUser({ ...currentUser, name: playerName.trim() });
+			updateUserMutation.mutateAsync({ id: currentUser.id, name: playerName.trim() });
 		}
 
 		try {
@@ -170,21 +174,19 @@ const LobbyScreen: React.FC = () => {
 					<div className="grid grid-cols-2 gap-2">
 						<button
 							onClick={() => setGameMode('CLASSIC')}
-							className={`rounded-lg p-3 font-medium transition-colors duration-200 ${
-								gameMode === 'CLASSIC'
-									? 'bg-white text-dark-text'
-									: 'border-2 border-header-outline text-white hover:bg-white hover:text-dark-text'
-							} `}
+							className={`rounded-lg p-3 font-medium transition-colors duration-200 ${gameMode === 'CLASSIC'
+								? 'bg-white text-dark-text'
+								: 'border-2 border-header-outline text-white hover:bg-white hover:text-dark-text'
+								} `}
 						>
 							Clássico
 						</button>
 						<button
 							onClick={() => setGameMode('EXTENDED')}
-							className={`rounded-lg p-3 font-medium transition-colors duration-200 ${
-								gameMode === 'EXTENDED'
-									? 'bg-white text-dark-text'
-									: 'border-2 border-header-outline text-white hover:bg-white hover:text-dark-text'
-							} `}
+							className={`rounded-lg p-3 font-medium transition-colors duration-200 ${gameMode === 'EXTENDED'
+								? 'bg-white text-dark-text'
+								: 'border-2 border-header-outline text-white hover:bg-white hover:text-dark-text'
+								} `}
 						>
 							Estendido
 						</button>

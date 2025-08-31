@@ -229,13 +229,12 @@ const Dashboard: React.FC = () => {
 													<div>
 														<div className="flex items-center space-x-2">
 															<span
-																className={`rounded px-2 py-1 text-xs font-medium ${
-																	isDraw
+																className={`rounded px-2 py-1 text-xs font-medium ${isDraw
 																		? 'bg-gray-100 text-gray-700'
 																		: isWin
 																			? 'bg-green-100 text-green-700'
 																			: 'bg-red-100 text-red-700'
-																} `}
+																	} `}
 															>
 																{isDraw
 																	? 'Empate'
