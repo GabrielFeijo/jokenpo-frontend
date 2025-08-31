@@ -26,7 +26,7 @@ export interface Match {
 	gameMode: 'CLASSIC' | 'EXTENDED';
 	status: 'WAITING' | 'PLAYING' | 'FINISHED';
 	plays: Play[];
-	result?: MatchResult;
+	results?: MatchResult[];
 	createdAt: Date;
 }
 

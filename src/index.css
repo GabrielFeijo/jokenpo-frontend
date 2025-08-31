@@ -5,6 +5,10 @@
 
 @layer base {
 	body {
-		@apply font-barlow;
+		@apply font-barlow antialiased;
+	}
+
+	html {
+		scroll-behavior: smooth;
 	}
 }

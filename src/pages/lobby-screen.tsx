@@ -106,7 +106,6 @@ const LobbyScreen: React.FC = () => {
 			transition={{ duration: 0.8 }}
 			className="space-y-12"
 		>
-			{/* Hero Section */}
 			<div className="text-center space-y-8">
 				<motion.div
 					initial={{ scale: 0.8, opacity: 0 }}
@@ -571,9 +570,7 @@ const LobbyScreen: React.FC = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-bg-from via-slate-800 to-bg-to relative overflow-hidden">
-			{/* Animated background elements */}
 			<div className="absolute inset-0 overflow-hidden pointer-events-none">
-				{/* Floating particles */}
 				{[...Array(30)].map((_, i) => (
 					<motion.div
 						key={i}
@@ -596,7 +593,6 @@ const LobbyScreen: React.FC = () => {
 					/>
 				))}
 
-				{/* Gradient orbs */}
 				<motion.div
 					className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
 					animate={{
@@ -626,7 +622,6 @@ const LobbyScreen: React.FC = () => {
 				/>
 			</div>
 
-			{/* Main Content */}
 			<div className="relative z-10 flex min-h-screen items-center justify-center p-6">
 				<div className="w-full max-w-6xl">
 					<AnimatePresence mode="wait">
@@ -664,7 +659,6 @@ const LobbyScreen: React.FC = () => {
 				</div>
 			</div>
 
-			{/* Decorative elements */}
 			<div className="absolute top-10 right-10 pointer-events-none">
 				<motion.div
 					animate={{
