@@ -12,7 +12,6 @@ const JoinRoom = ({ playerName, setPlayerName, roomCode, setRoomCode, setMode }:
     const navigate = useNavigate();
     const updateUserMutation = useUpdateUser();
 
-
     const handleJoinRoom = async () => {
         if (!currentUser) {
             toast.error('Erro: usuário não encontrado');
@@ -30,17 +29,11 @@ const JoinRoom = ({ playerName, setPlayerName, roomCode, setRoomCode, setMode }:
         }
 
         try {
-            const response = await joinRoomMutation.mutateAsync({
-                roomId: roomCode.trim().toUpperCase(),
-                userId: currentUser.id,
-            });
-
-            navigate(`/game/${response.room.inviteCode}`, { replace: true });
+            navigate(`/game/${roomCode.trim().toUpperCase()}`, { replace: true });
         } catch (error) {
             console.error('Erro ao entrar na sala:', error);
         }
     };
-
 
     return (
         <motion.div

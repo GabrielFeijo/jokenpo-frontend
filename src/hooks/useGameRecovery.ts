@@ -30,6 +30,7 @@ export const useGameRecovery = () => {
 					try {
 						user = await createGuestMutation.mutateAsync();
 					} catch (error) {
+						console.error('Erro ao criar usuário:', error);
 						setRecoveryError('Erro ao criar usuário');
 						return;
 					}
