@@ -23,7 +23,7 @@ import {
 	Shield,
 	Sparkles,
 	Swords,
-	ArrowRight
+	ArrowRight,
 } from 'lucide-react';
 import StatCard from '@/components/stat-card';
 import FiltersModal from '@/components/filters-modal';
@@ -48,12 +48,12 @@ const Dashboard: React.FC = () => {
 		useDashboardData(filters);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-bg-from via-slate-800 to-bg-to relative overflow-hidden">
-			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+		<div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-bg-from via-slate-800 to-bg-to">
+			<div className="pointer-events-none absolute inset-0 overflow-hidden">
 				{[...Array(25)].map((_, i) => (
 					<motion.div
 						key={i}
-						className="absolute w-2 h-2 bg-white/10 rounded-full"
+						className="absolute h-2 w-2 rounded-full bg-white/10"
 						style={{
 							left: `${Math.random() * 100}%`,
 							top: `${Math.random() * 100}%`,
@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
 				))}
 
 				<motion.div
-					className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+					className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl"
 					animate={{
 						scale: [1, 1.2, 1],
 						x: [0, 100, 0],
@@ -81,12 +81,12 @@ const Dashboard: React.FC = () => {
 					transition={{
 						duration: 12,
 						repeat: Infinity,
-						ease: "easeInOut",
+						ease: 'easeInOut',
 					}}
 				/>
 
 				<motion.div
-					className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+					className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-purple-500/10 blur-3xl"
 					animate={{
 						scale: [1.2, 1, 1.2],
 						x: [0, -100, 0],
@@ -95,13 +95,13 @@ const Dashboard: React.FC = () => {
 					transition={{
 						duration: 15,
 						repeat: Infinity,
-						ease: "easeInOut",
+						ease: 'easeInOut',
 					}}
 				/>
 			</div>
 
 			<motion.div
-				className="relative z-10 bg-black/20 backdrop-blur-md border-b border-white/10"
+				className="relative z-10 border-b border-white/10 bg-black/20 backdrop-blur-md"
 				initial={{ y: -100, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ duration: 0.8 }}
@@ -113,32 +113,27 @@ const Dashboard: React.FC = () => {
 								whileHover={{ scale: 1.1, x: -5 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={() => navigate('/')}
-								className="
-									w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 
-									flex items-center justify-center text-white shadow-lg
-									hover:from-blue-700 hover:to-purple-700 transition-all duration-300
-									border-2 border-white/20
-								"
+								className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-white/20 bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-purple-700"
 							>
 								<ArrowLeft size={20} />
 							</motion.button>
 
 							<div>
 								<motion.h1
-									className="text-4xl md:text-5xl font-black text-white mb-2"
+									className="mb-2 text-4xl font-black text-white md:text-5xl"
 									animate={{
 										textShadow: [
-											"0 0 20px rgba(255,255,255,0.5)",
-											"0 0 30px rgba(255,255,255,0.8)",
-											"0 0 20px rgba(255,255,255,0.5)"
-										]
+											'0 0 20px rgba(255,255,255,0.5)',
+											'0 0 30px rgba(255,255,255,0.8)',
+											'0 0 20px rgba(255,255,255,0.5)',
+										],
 									}}
 									transition={{ duration: 3, repeat: Infinity }}
 								>
 									Arena Dashboard
 								</motion.h1>
 								<motion.p
-									className="text-white/70 text-lg flex items-center space-x-2"
+									className="flex items-center space-x-2 text-lg text-white/70"
 									initial={{ opacity: 0, y: 10 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ delay: 0.3 }}
@@ -153,12 +148,7 @@ const Dashboard: React.FC = () => {
 							whileHover={{ scale: 1.05, rotateY: 5 }}
 							whileTap={{ scale: 0.95 }}
 							onClick={() => setShowFilters(!showFilters)}
-							className="
-								flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-600 
-								rounded-xl px-6 py-3 text-white font-semibold transition-all duration-300 
-								hover:from-purple-700 hover:to-pink-700 shadow-2xl
-								border-2 border-white/20
-							"
+							className="flex items-center space-x-3 rounded-xl border-2 border-white/20 bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-2xl transition-all duration-300 hover:from-purple-700 hover:to-pink-700"
 						>
 							<Filter size={20} />
 							<span>Filtros Avançados</span>
@@ -167,7 +157,7 @@ const Dashboard: React.FC = () => {
 				</div>
 			</motion.div>
 
-			<div className="relative z-10 container mx-auto space-y-12 px-6 py-12">
+			<div className="container relative z-10 mx-auto space-y-12 px-6 py-12">
 				<motion.div
 					className="space-y-8"
 					initial={{ opacity: 0, y: 50 }}
@@ -178,7 +168,7 @@ const Dashboard: React.FC = () => {
 						<motion.div
 							animate={{
 								scale: [1, 1.2, 1],
-								rotate: [0, 10, -10, 0]
+								rotate: [0, 10, -10, 0],
 							}}
 							transition={{ duration: 2, repeat: Infinity }}
 						>
@@ -198,7 +188,7 @@ const Dashboard: React.FC = () => {
 							{[...Array(4)].map((_, i) => (
 								<motion.div
 									key={i}
-									className="animate-pulse rounded-2xl bg-white/10 backdrop-blur-sm p-8 h-32 border border-white/10"
+									className="h-32 animate-pulse rounded-2xl border border-white/10 bg-white/10 p-8 backdrop-blur-sm"
 									initial={{ opacity: 0, scale: 0.9 }}
 									animate={{ opacity: 1, scale: 1 }}
 									transition={{ delay: i * 0.1 }}
@@ -258,7 +248,7 @@ const Dashboard: React.FC = () => {
 						<motion.div
 							animate={{
 								scale: [1, 1.2, 1],
-								rotate: [0, 10, -10, 0]
+								rotate: [0, 10, -10, 0],
 							}}
 							transition={{ duration: 2, repeat: Infinity }}
 						>
@@ -268,7 +258,7 @@ const Dashboard: React.FC = () => {
 						<motion.div
 							animate={{
 								opacity: [0.5, 1, 0.5],
-								scale: [1, 1.1, 1]
+								scale: [1, 1.1, 1],
 							}}
 							transition={{ duration: 1.5, repeat: Infinity }}
 						>
@@ -281,7 +271,7 @@ const Dashboard: React.FC = () => {
 							{[...Array(3)].map((_, i) => (
 								<motion.div
 									key={i}
-									className="animate-pulse rounded-2xl bg-white/10 backdrop-blur-sm p-8 h-32 border border-white/10"
+									className="h-32 animate-pulse rounded-2xl border border-white/10 bg-white/10 p-8 backdrop-blur-sm"
 									initial={{ opacity: 0, scale: 0.9 }}
 									animate={{ opacity: 1, scale: 1 }}
 									transition={{ delay: i * 0.1 }}
@@ -333,17 +323,19 @@ const Dashboard: React.FC = () => {
 						<motion.div
 							animate={{
 								scale: [1, 1.2, 1],
-								rotate: [0, 10, -10, 0]
+								rotate: [0, 10, -10, 0],
 							}}
 							transition={{ duration: 2, repeat: Infinity }}
 						>
 							<Medal size={32} className="text-purple-400" />
 						</motion.div>
-						<h2 className="text-3xl font-bold text-white">Histórico de Batalhas</h2>
+						<h2 className="text-3xl font-bold text-white">
+							Histórico de Batalhas
+						</h2>
 						<motion.div
 							animate={{
 								rotate: [0, 20, -20, 0],
-								scale: [1, 1.2, 1]
+								scale: [1, 1.2, 1],
 							}}
 							transition={{ duration: 3, repeat: Infinity }}
 						>
@@ -351,14 +343,14 @@ const Dashboard: React.FC = () => {
 						</motion.div>
 					</div>
 
-					<div className="overflow-hidden rounded-3xl bg-black/30 backdrop-blur-lg border border-white/10 shadow-2xl">
+					<div className="overflow-hidden rounded-3xl border border-white/10 bg-black/30 shadow-2xl backdrop-blur-lg">
 						{dashboardLoading ? (
 							<div className="p-8">
 								<div className="space-y-4">
 									{[...Array(5)].map((_, i) => (
 										<motion.div
 											key={i}
-											className="flex animate-pulse items-center space-x-4 p-4 rounded-xl bg-white/5"
+											className="flex animate-pulse items-center space-x-4 rounded-xl bg-white/5 p-4"
 											initial={{ opacity: 0, x: -20 }}
 											animate={{ opacity: 1, x: 0 }}
 											transition={{ delay: i * 0.1 }}
@@ -376,7 +368,11 @@ const Dashboard: React.FC = () => {
 							<div className="divide-y divide-white/5">
 								{dashboardData.matches.map((match, index) => {
 									return (
-										<BattleHistoryItem key={match.id} match={match} index={index} />
+										<BattleHistoryItem
+											key={match.id}
+											match={match}
+											index={index}
+										/>
 									);
 								})}
 							</div>
@@ -390,26 +386,23 @@ const Dashboard: React.FC = () => {
 								<motion.div
 									animate={{
 										rotate: [0, 10, -10, 0],
-										scale: [1, 1.1, 1]
+										scale: [1, 1.1, 1],
 									}}
 									transition={{ duration: 3, repeat: Infinity }}
 								>
 									<Gamepad2 size={64} className="mx-auto mb-6 opacity-30" />
 								</motion.div>
-								<h3 className="text-2xl font-bold mb-4 text-white">Nenhuma Batalha Encontrada</h3>
-								<p className="text-white/40 mb-8">
+								<h3 className="mb-4 text-2xl font-bold text-white">
+									Nenhuma Batalha Encontrada
+								</h3>
+								<p className="mb-8 text-white/40">
 									Inicie sua jornada épica e conquiste a arena!
 								</p>
 								<motion.button
 									whileHover={{ scale: 1.05, y: -2 }}
 									whileTap={{ scale: 0.95 }}
 									onClick={() => navigate('/')}
-									className="
-										bg-gradient-to-r from-blue-600 to-purple-600 
-										px-8 py-4 rounded-xl font-semibold text-white
-										transition-all duration-300 hover:from-blue-700 hover:to-purple-700
-										shadow-2xl border-2 border-white/20
-									"
+									className="rounded-xl border-2 border-white/20 bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 font-semibold text-white shadow-2xl transition-all duration-300 hover:from-blue-700 hover:to-purple-700"
 								>
 									<span className="flex items-center space-x-2">
 										<Zap size={18} />
@@ -420,10 +413,9 @@ const Dashboard: React.FC = () => {
 							</motion.div>
 						)}
 
-
 						{dashboardData?.hasMore && (
 							<motion.div
-								className="p-6 text-center border-t border-white/10 flex items-center justify-center gap-4"
+								className="flex items-center justify-center gap-4 border-t border-white/10 p-6 text-center"
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 							>
@@ -433,44 +425,30 @@ const Dashboard: React.FC = () => {
 										setFilters((prev) => ({ ...prev, page: prev.page - 1 }))
 									}
 									disabled={filters.page === 1}
-									className="
-												bg-gradient-to-r from-red-600 to-pink-600 
-												px-6 py-3 rounded-xl font-semibold text-white
-												transition-all duration-300 hover:from-red-700 hover:to-pink-700
-												shadow-2xl border-2 border-white/20 backdrop-blur-sm
-												flex items-center space-x-2 min-w-[140px] disabled:opacity-50
-											"
+									className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-red-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-red-700 hover:to-pink-700 disabled:opacity-50"
 								>
 									<motion.div
 										animate={{ x: [-2, 0, -2] }}
-										transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: 'easeInOut',
+										}}
 									>
 										<ArrowLeft size={18} />
 									</motion.div>
 									<span>Anterior</span>
 								</motion.button>
 
-								<div
-									className="flex items-center space-x-3 px-4 py-2 rounded-xl bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border border-white/20 shadow-lg"
-								>
-									<span
-										className="text-white/70 text-sm font-semibold flex items-center space-x-1"
-									>
+								<div className="flex items-center space-x-3 rounded-xl border border-white/20 bg-gradient-to-r from-white/10 to-white/5 px-4 py-2 shadow-lg backdrop-blur-sm">
+									<span className="flex items-center space-x-1 text-sm font-semibold text-white/70">
 										Página:
 									</span>
-									<span
-										className="text-white font-bold text-lg py-1 rounded-lg "
-									>
+									<span className="rounded-lg py-1 text-lg font-bold text-white">
 										{dashboardData.page}
 									</span>
-									<span
-										className="text-white/60 text-sm font-medium"
-									>
-										de
-									</span>
-									<span
-										className="text-white font-bold text-lg py-1 rounded-lg "
-									>
+									<span className="text-sm font-medium text-white/60">de</span>
+									<span className="rounded-lg py-1 text-lg font-bold text-white">
 										{dashboardData.total}
 									</span>
 								</div>
@@ -480,18 +458,16 @@ const Dashboard: React.FC = () => {
 									onClick={() =>
 										setFilters((prev) => ({ ...prev, page: prev.page + 1 }))
 									}
-									className="
-												bg-gradient-to-r from-green-600 to-emerald-600 
-												px-6 py-3 rounded-xl font-semibold text-white
-												transition-all duration-300 hover:from-green-700 hover:to-emerald-700
-												shadow-2xl border-2 border-white/20 backdrop-blur-sm
-												flex items-center space-x-2 min-w-[140px]
-											"
+									className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-green-700 hover:to-emerald-700"
 								>
 									<span>Próxima</span>
 									<motion.div
 										animate={{ x: [0, 2, 0] }}
-										transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: 'easeInOut',
+										}}
 									>
 										<ArrowRight size={18} />
 									</motion.div>

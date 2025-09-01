@@ -55,7 +55,7 @@ const GameScreen: React.FC = () => {
 		if (canStartGame && gamePhase === 'waiting') {
 			setCountdown(3);
 			const timer = setInterval(() => {
-				setCountdown(prev => {
+				setCountdown((prev) => {
 					if (prev === 1) {
 						clearInterval(timer);
 						setGamePhase('choosing');
@@ -114,15 +114,11 @@ const GameScreen: React.FC = () => {
 	};
 
 	if (isRecovering) {
-		return (
-			<GameRecoveryLoader />
-		);
+		return <GameRecoveryLoader />;
 	}
 
 	if (recoveryError || !currentRoom) {
-		return (
-			<GameRecoveryError handleLeaveGame={handleLeaveGame} />
-		);
+		return <GameRecoveryError handleLeaveGame={handleLeaveGame} />;
 	}
 
 	const renderWaitingScreen = () => (
@@ -142,18 +138,16 @@ const GameScreen: React.FC = () => {
 	);
 
 	const renderRevealScreen = () => (
-		<RevealScreen
-			handlePlayAgain={handlePlayAgain}
-		/>
+		<RevealScreen handlePlayAgain={handlePlayAgain} />
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-bg-from via-slate-800 to-bg-to relative overflow-hidden">
-			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+		<div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-bg-from via-slate-800 to-bg-to">
+			<div className="pointer-events-none absolute inset-0 overflow-hidden">
 				{[...Array(20)].map((_, i) => (
 					<motion.div
 						key={i}
-						className="absolute w-2 h-2 bg-white/10 rounded-full"
+						className="absolute h-2 w-2 rounded-full bg-white/10"
 						style={{
 							left: `${Math.random() * 100}%`,
 							top: `${Math.random() * 100}%`,

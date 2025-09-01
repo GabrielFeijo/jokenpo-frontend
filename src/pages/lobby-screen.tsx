@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
-import {
-	useCreateGuestUser,
-} from '../hooks/useApi';
+import { useCreateGuestUser } from '../hooks/useApi';
 import LobbyMenu from '@/components/lobby-meny';
 import CreateRoom from '@/components/create-room';
 import JoinRoom from '@/components/join-room';
@@ -14,9 +12,7 @@ const LobbyScreen: React.FC = () => {
 	const [gameMode, setGameMode] = useState<'CLASSIC' | 'EXTENDED'>('CLASSIC');
 	const [playerName, setPlayerName] = useState('');
 
-	const {
-		currentUser,
-	} = useGameStore();
+	const { currentUser } = useGameStore();
 
 	const createGuestMutation = useCreateGuestUser();
 
@@ -26,9 +22,7 @@ const LobbyScreen: React.FC = () => {
 		}
 	}, [currentUser, createGuestMutation.isPending]);
 
-	const renderMainMenu = () => (
-		<LobbyMenu setMode={setMode} />
-	);
+	const renderMainMenu = () => <LobbyMenu setMode={setMode} />;
 
 	const renderCreateRoom = () => (
 		<CreateRoom
@@ -51,12 +45,12 @@ const LobbyScreen: React.FC = () => {
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-bg-from via-slate-800 to-bg-to relative overflow-hidden">
-			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+		<div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-bg-from via-slate-800 to-bg-to">
+			<div className="pointer-events-none absolute inset-0 overflow-hidden">
 				{[...Array(30)].map((_, i) => (
 					<motion.div
 						key={i}
-						className="absolute w-1 h-1 bg-white/20 rounded-full"
+						className="absolute h-1 w-1 rounded-full bg-white/20"
 						style={{
 							left: `${Math.random() * 100}%`,
 							top: `${Math.random() * 100}%`,
@@ -70,13 +64,13 @@ const LobbyScreen: React.FC = () => {
 							duration: 4 + Math.random() * 3,
 							repeat: Infinity,
 							delay: Math.random() * 3,
-							ease: "easeInOut",
+							ease: 'easeInOut',
 						}}
 					/>
 				))}
 
 				<motion.div
-					className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
+					className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"
 					animate={{
 						scale: [1, 1.2, 1],
 						x: [0, 100, 0],
@@ -85,12 +79,12 @@ const LobbyScreen: React.FC = () => {
 					transition={{
 						duration: 8,
 						repeat: Infinity,
-						ease: "easeInOut",
+						ease: 'easeInOut',
 					}}
 				/>
 
 				<motion.div
-					className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+					className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl"
 					animate={{
 						scale: [1.2, 1, 1.2],
 						x: [0, -100, 0],
@@ -99,7 +93,7 @@ const LobbyScreen: React.FC = () => {
 					transition={{
 						duration: 10,
 						repeat: Infinity,
-						ease: "easeInOut",
+						ease: 'easeInOut',
 					}}
 				/>
 			</div>
@@ -141,15 +135,15 @@ const LobbyScreen: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="absolute top-10 right-10 pointer-events-none">
+			<div className="pointer-events-none absolute right-10 top-10">
 				<motion.div
 					animate={{
 						rotate: [0, 360],
 						scale: [1, 1.1, 1],
 					}}
 					transition={{
-						rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-						scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+						rotate: { duration: 20, repeat: Infinity, ease: 'linear' },
+						scale: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
 					}}
 					className="text-6xl opacity-20"
 				>
@@ -157,15 +151,15 @@ const LobbyScreen: React.FC = () => {
 				</motion.div>
 			</div>
 
-			<div className="absolute bottom-10 left-10 pointer-events-none">
+			<div className="pointer-events-none absolute bottom-10 left-10">
 				<motion.div
 					animate={{
 						rotate: [0, -360],
 						scale: [1, 1.2, 1],
 					}}
 					transition={{
-						rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-						scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+						rotate: { duration: 25, repeat: Infinity, ease: 'linear' },
+						scale: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
 					}}
 					className="text-5xl opacity-20"
 				>

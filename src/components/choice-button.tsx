@@ -23,10 +23,14 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 	const getGradientClass = (choice: Choice) => {
 		const gradients = {
 			ROCK: 'bg-gradient-to-br from-rock-from via-red-400 to-rock-to shadow-red-500/30',
-			PAPER: 'bg-gradient-to-br from-paper-from via-blue-400 to-paper-to shadow-blue-500/30',
-			SCISSORS: 'bg-gradient-to-br from-scissors-from via-yellow-400 to-scissors-to shadow-yellow-500/30',
-			LIZARD: 'bg-gradient-to-br from-lizard-from via-purple-400 to-lizard-to shadow-purple-500/30',
-			SPOCK: 'bg-gradient-to-br from-spock-from via-cyan-400 to-spock-to shadow-cyan-500/30',
+			PAPER:
+				'bg-gradient-to-br from-paper-from via-blue-400 to-paper-to shadow-blue-500/30',
+			SCISSORS:
+				'bg-gradient-to-br from-scissors-from via-yellow-400 to-scissors-to shadow-yellow-500/30',
+			LIZARD:
+				'bg-gradient-to-br from-lizard-from via-purple-400 to-lizard-to shadow-purple-500/30',
+			SPOCK:
+				'bg-gradient-to-br from-spock-from via-cyan-400 to-spock-to shadow-cyan-500/30',
 		};
 		return gradients[choice];
 	};
@@ -36,15 +40,19 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 			? 'w-36 h-36 md:w-44 md:h-44'
 			: 'w-28 h-28 md:w-32 md:h-32';
 
-	const innerSize = size === 'large' ? 'h-20 w-20 md:h-24 md:w-24' : 'h-16 w-16 md:h-18 md:w-18';
-	const iconSize = size === 'large' ? 'h-10 w-10 md:h-12 md:w-12' : 'h-8 w-8 md:h-10 md:w-10';
+	const innerSize =
+		size === 'large'
+			? 'h-20 w-20 md:h-24 md:w-24'
+			: 'h-16 w-16 md:h-18 md:w-18';
+	const iconSize =
+		size === 'large' ? 'h-10 w-10 md:h-12 md:w-12' : 'h-8 w-8 md:h-10 md:w-10';
 
 	return (
 		<motion.div
 			className="relative"
 			initial={{ scale: 0.8, opacity: 0 }}
 			animate={{ scale: 1, opacity: 1 }}
-			transition={{ duration: 0.3, type: "spring" }}
+			transition={{ duration: 0.3, type: 'spring' }}
 		>
 			{showResult && isWinner && (
 				<motion.div
@@ -56,7 +64,7 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 					transition={{
 						duration: 2,
 						repeat: Infinity,
-						ease: "easeInOut",
+						ease: 'easeInOut',
 					}}
 				/>
 			)}
@@ -71,32 +79,31 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 					transition={{
 						duration: 1.5,
 						repeat: Infinity,
-						ease: "easeInOut",
+						ease: 'easeInOut',
 					}}
 				/>
 			)}
 
 			<motion.button
-				whileHover={!disabled ? {
-					scale: 1.05,
-					rotateY: 5,
-				} : {}}
-				whileTap={!disabled ? {
-					scale: 0.95,
-					rotateX: 10,
-				} : {}}
+				whileHover={
+					!disabled
+						? {
+								scale: 1.05,
+								rotateY: 5,
+							}
+						: {}
+				}
+				whileTap={
+					!disabled
+						? {
+								scale: 0.95,
+								rotateX: 10,
+							}
+						: {}
+				}
 				onClick={onClick}
 				disabled={disabled}
-				className={`
-					${sizeClasses} 
-					${getGradientClass(choice)} 
-					relative flex items-center justify-center rounded-full 
-					shadow-2xl transition-all duration-300 transform-gpu
-					${disabled ? 'cursor-not-allowed opacity-70' : 'cursor-pointer hover:shadow-3xl'}
-					${isSelected ? 'ring-4 ring-white ring-opacity-50' : ''}
-					${showResult && isWinner ? 'ring-4 ring-yellow-400 ring-opacity-70' : ''}
-					border-4 border-white/20
-				`}
+				className={` ${sizeClasses} ${getGradientClass(choice)} relative flex transform-gpu items-center justify-center rounded-full shadow-2xl transition-all duration-300 ${disabled ? 'cursor-not-allowed opacity-70' : 'hover:shadow-3xl cursor-pointer'} ${isSelected ? 'ring-4 ring-white ring-opacity-50' : ''} ${showResult && isWinner ? 'ring-4 ring-yellow-400 ring-opacity-70' : ''} border-4 border-white/20`}
 				style={{
 					transformStyle: 'preserve-3d',
 				}}
@@ -104,26 +111,29 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 				<div className="absolute inset-2 rounded-full bg-gradient-to-br from-black/10 to-transparent" />
 
 				<motion.div
-					className={`
-						${innerSize} 
-						flex items-center justify-center rounded-full 
-						bg-gradient-to-br from-white via-gray-50 to-gray-100 
-						shadow-inner border border-gray-200/50
-					`}
-					whileHover={!disabled ? {
-						scale: 1.05,
-						boxShadow: "0 0 20px rgba(255,255,255,0.3)",
-					} : {}}
+					className={` ${innerSize} flex items-center justify-center rounded-full border border-gray-200/50 bg-gradient-to-br from-white via-gray-50 to-gray-100 shadow-inner`}
+					whileHover={
+						!disabled
+							? {
+									scale: 1.05,
+									boxShadow: '0 0 20px rgba(255,255,255,0.3)',
+								}
+							: {}
+					}
 					transition={{ duration: 0.2 }}
 				>
 					<motion.img
 						src={CHOICE_ICONS[choice]}
 						alt={choice}
 						className={`${iconSize} drop-shadow-md`}
-						whileHover={!disabled ? {
-							scale: 1.1,
-							filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))",
-						} : {}}
+						whileHover={
+							!disabled
+								? {
+										scale: 1.1,
+										filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
+									}
+								: {}
+						}
 						transition={{ duration: 0.2 }}
 					/>
 				</motion.div>
@@ -133,7 +143,7 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 						{[...Array(6)].map((_, i) => (
 							<motion.div
 								key={i}
-								className="absolute w-2 h-2 bg-yellow-400 rounded-full"
+								className="absolute h-2 w-2 rounded-full bg-yellow-400"
 								initial={{
 									scale: 0,
 									x: 0,
@@ -148,7 +158,7 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 									duration: 1.5,
 									repeat: Infinity,
 									delay: i * 0.1,
-									ease: "easeOut",
+									ease: 'easeOut',
 								}}
 							/>
 						))}
@@ -157,12 +167,12 @@ const ChoiceButton: React.FC<ChoiceButtonProps> = ({
 			</motion.button>
 
 			<motion.div
-				className="absolute -bottom-7 text-center w-full"
+				className="absolute -bottom-7 w-full text-center"
 				initial={{ opacity: 0, y: 10 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ delay: 0.2 }}
 			>
-				<span className="text-white text-sm font-semibold uppercase tracking-wider">
+				<span className="text-sm font-semibold uppercase tracking-wider text-white">
 					{choice}
 				</span>
 			</motion.div>
