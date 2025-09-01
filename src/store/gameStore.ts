@@ -1,40 +1,7 @@
 import { create } from 'zustand';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
-import { Choice, User, Room, Match, GameResult } from '../types/game';
-
-interface GameState {
-	currentUser: User | null;
-	currentRoom: Room | null;
-	isConnected: boolean;
-	connectionError: string | null;
-	currentMatch: Match | null;
-	myChoice: Choice | null;
-	opponentChoice: Choice | null;
-	gameResult: GameResult | null;
-	isPlaying: boolean;
-	isReady: boolean;
-	opponentReady: boolean;
-	score: number;
-	gameMode: 'CLASSIC' | 'EXTENDED';
-	showRules: boolean;
-	isAnimating: boolean;
-
-	setUser: (user: User) => void;
-	setRoom: (room: Room | null) => void;
-	setConnectionStatus: (connected: boolean, error?: string) => void;
-	setMatch: (match: Match | null) => void;
-	setMyChoice: (choice: Choice | null) => void;
-	setOpponentChoice: (choice: Choice | null) => void;
-	setGameResult: (result: GameResult | null) => void;
-	setReady: (ready: boolean) => void;
-	setOpponentReady: (ready: boolean) => void;
-	updateScore: (points: number) => void;
-	setGameMode: (mode: 'CLASSIC' | 'EXTENDED') => void;
-	setShowRules: (show: boolean) => void;
-	setAnimating: (animating: boolean) => void;
-	resetGame: () => void;
-	playAgain: () => void;
-}
+import { GameState } from './game.types';
+import { User, Room, Match, Choice, GameResult } from '@/types/game';
 
 export const useGameStore = create<GameState>()(
 	persist(
@@ -115,35 +82,3 @@ export const useGameStore = create<GameState>()(
 		}
 	)
 );
-
-export const useUser = () => useGameStore((state) => state.currentUser);
-export const useRoom = () => useGameStore((state) => state.currentRoom);
-export const useMatch = () => useGameStore((state) => state.currentMatch);
-export const useGameState = () =>
-	useGameStore((state) => ({
-		myChoice: state.myChoice,
-		opponentChoice: state.opponentChoice,
-		gameResult: state.gameResult,
-		isPlaying: state.isPlaying,
-		score: state.score,
-	}));
-export const useReadyState = () =>
-	useGameStore((state) => ({
-		isReady: state.isReady,
-		opponentReady: state.opponentReady,
-		canStartGame:
-			state.isReady &&
-			state.opponentReady &&
-			state.currentRoom?.players.length === 2,
-	}));
-export const useConnection = () =>
-	useGameStore((state) => ({
-		isConnected: state.isConnected,
-		connectionError: state.connectionError,
-	}));
-export const useUI = () =>
-	useGameStore((state) => ({
-		gameMode: state.gameMode,
-		showRules: state.showRules,
-		isAnimating: state.isAnimating,
-	}));
