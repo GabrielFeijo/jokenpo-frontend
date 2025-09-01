@@ -73,12 +73,7 @@ const WaitingRoomScreen = ({ countdown, opponentPlayer, handleReadyClick }: { co
                                 </span>
                             </div>
 
-                            <motion.div
-                                animate={{ rotate: [0, 360] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                            >
-                                <Zap size={24} className="text-yellow-400" />
-                            </motion.div>
+                            <Zap size={24} className="text-yellow-400 -mt-6" />
 
                             <div className="text-center">
                                 <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center mb-2">

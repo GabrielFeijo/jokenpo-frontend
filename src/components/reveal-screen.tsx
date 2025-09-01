@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { Sparkles } from "lucide-react"
 import ChoiceButton from "./choice-button"
 import { useGameStore } from "@/store/gameStore"
 
@@ -99,11 +98,11 @@ const RevealScreen = ({ handlePlayAgain }: { handlePlayAgain: () => void }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -50, scale: 0.8 }}
                         transition={{ duration: 0.6, type: "spring" }}
-                        className="text-center space-y-6"
+                        className="text-center space-y-10"
                     >
                         <motion.div
                             className={`
-                        text-6xl md:text-8xl font-black uppercase tracking-wider
+                        text-5xl md:text-7xl font-black uppercase tracking-wider
                         ${gameResult === 'WIN' ? 'text-green-400' :
                                     gameResult === 'LOSE' ? 'text-red-400' : 'text-yellow-400'}
                     `}
@@ -120,25 +119,9 @@ const RevealScreen = ({ handlePlayAgain }: { handlePlayAgain: () => void }) => {
                             }}
                             transition={{ duration: 2, repeat: Infinity }}
                         >
-                            {gameResult === 'WIN' && 'VITÓRIA!'}
-                            {gameResult === 'LOSE' && 'DERROTA!'}
-                            {gameResult === 'DRAW' && 'EMPATE!'}
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ scale: 0, rotate: -180 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-                        >
-                            {gameResult === 'WIN' && (
-                                <div className="text-8xl">🏆</div>
-                            )}
-                            {gameResult === 'LOSE' && (
-                                <div className="text-8xl">💀</div>
-                            )}
-                            {gameResult === 'DRAW' && (
-                                <div className="text-8xl">🤝</div>
-                            )}
+                            {gameResult === 'WIN' && 'VITÓRIA! 🏆'}
+                            {gameResult === 'LOSE' && 'DERROTA! 💀'}
+                            {gameResult === 'DRAW' && 'EMPATE! 🤝'}
                         </motion.div>
 
                         <motion.button
@@ -150,7 +133,7 @@ const RevealScreen = ({ handlePlayAgain }: { handlePlayAgain: () => void }) => {
                             onClick={handlePlayAgain}
                             className="
                         bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 
-                        px-12 py-4 rounded-2xl text-xl font-bold uppercase tracking-wider 
+                        px-12 py-4 rounded-xl text-xl font-bold uppercase tracking-wider 
                         text-white transition-all duration-300 shadow-2xl
                         hover:from-blue-700 hover:via-purple-700 hover:to-pink-700
                         border-2 border-white/20
@@ -160,9 +143,7 @@ const RevealScreen = ({ handlePlayAgain }: { handlePlayAgain: () => void }) => {
                             transition={{ delay: 0.6 }}
                         >
                             <span className="flex items-center space-x-3">
-                                <Sparkles size={24} />
                                 <span>Jogar Novamente</span>
-                                <Sparkles size={24} />
                             </span>
                         </motion.button>
                     </motion.div>
