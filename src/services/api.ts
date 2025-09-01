@@ -67,6 +67,7 @@ export const apiService = {
 		matches: Match[];
 		total: number;
 		hasMore: boolean;
+		page: number;
 	}> => {
 		const response = await api.get('/stats/dashboard', { params: filters });
 		return response.data;

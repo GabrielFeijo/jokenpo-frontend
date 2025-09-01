@@ -56,7 +56,6 @@ export interface GameStats {
 	draws: number;
 	winRate: number;
 	favoriteChoice: Choice;
-	matchHistory: Match[];
 }
 
 export interface SocketEvents {
@@ -98,7 +97,6 @@ export interface GetStatsResponse {
 		totalMatches: number;
 		totalPlayers: number;
 		mostPopularChoice: Choice;
-		recentMatches: Match[];
 	};
 }
 

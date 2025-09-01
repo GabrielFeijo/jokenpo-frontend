@@ -420,35 +420,60 @@ const Dashboard: React.FC = () => {
 							</motion.div>
 						)}
 
+
 						{dashboardData?.hasMore && (
 							<motion.div
 								className="p-6 text-center border-t border-white/10 flex items-center justify-center gap-4"
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 							>
-								{filters.page > 1 &&
-									<motion.button
-										whileTap={{ scale: 0.95 }}
-										onClick={() =>
-											setFilters((prev) => ({ ...prev, page: prev.page - 1 }))
-										}
-										className="
+								<motion.button
+									whileTap={{ scale: 0.95 }}
+									onClick={() =>
+										setFilters((prev) => ({ ...prev, page: prev.page - 1 }))
+									}
+									disabled={filters.page === 1}
+									className="
 												bg-gradient-to-r from-red-600 to-pink-600 
 												px-6 py-3 rounded-xl font-semibold text-white
 												transition-all duration-300 hover:from-red-700 hover:to-pink-700
 												shadow-2xl border-2 border-white/20 backdrop-blur-sm
-												flex items-center space-x-2 min-w-[140px]
+												flex items-center space-x-2 min-w-[140px] disabled:opacity-50
 											"
+								>
+									<motion.div
+										animate={{ x: [-2, 0, -2] }}
+										transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
 									>
-										<motion.div
-											animate={{ x: [-2, 0, -2] }}
-											transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-										>
-											<ArrowLeft size={18} />
-										</motion.div>
-										<span>Anterior</span>
-									</motion.button>
-								}
+										<ArrowLeft size={18} />
+									</motion.div>
+									<span>Anterior</span>
+								</motion.button>
+
+								<div
+									className="flex items-center space-x-3 px-4 py-2 rounded-xl bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border border-white/20 shadow-lg"
+								>
+									<span
+										className="text-white/70 text-sm font-semibold flex items-center space-x-1"
+									>
+										Página:
+									</span>
+									<span
+										className="text-white font-bold text-lg py-1 rounded-lg "
+									>
+										{dashboardData.page}
+									</span>
+									<span
+										className="text-white/60 text-sm font-medium"
+									>
+										de
+									</span>
+									<span
+										className="text-white font-bold text-lg py-1 rounded-lg "
+									>
+										{dashboardData.total}
+									</span>
+								</div>
 
 								<motion.button
 									whileTap={{ scale: 0.95 }}
