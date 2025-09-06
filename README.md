@@ -56,7 +56,7 @@ _Painel com estatísticas e histórico de batalhas_
 1. **Clone o repositório**
 
    ```bash
-   git clone https://github.com/GabrielFeijo/jokenpo-frontend
+   git clone https://github.com/GabrielFeijo/jokenpo-frontend.git
    cd jokenpo-frontend
    ```
 
