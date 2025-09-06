@@ -71,8 +71,7 @@ _Painel com estatísticas e histórico de batalhas_
    Crie um arquivo `.env` na raiz do projeto:
 
    ```env
-   VITE_API_URL=http://localhost:3333
-   VITE_WS_URL=ws://localhost:3333
+   VITE_API_BASE_URL=http://localhost:3333
    ```
 
 4. **Execute o projeto**
