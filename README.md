@@ -2,11 +2,9 @@
 
 Um jogo moderno e interativo de **Pedra, Papel e Tesoura** construído com React, TypeScript e WebSocket para partidas multijogador em tempo real. Projeto inspirado no desafio do [Frontend Mentor](https://www.frontendmentor.io/challenges/rock-paper-scissors-game-pTgwgvgH) com funcionalidades expandida.
 
-## 📸 Screenshots
-
 <img src="https://i.imgur.com/wuxZ1CH.gif" />
 
----
+## 📸 Screenshots
 
 ![Lobby Principal](https://i.imgur.com/d2GINMV.png)
 _Tela inicial com menu de opções_
