@@ -113,7 +113,7 @@ const Dashboard: React.FC = () => {
 								whileHover={{ scale: 1.1, x: -5 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={() => navigate('/')}
-								className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-white/20 bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-purple-700"
+								className="flex-1 rounded-xl border-2 border-white/30 bg-black/20 p-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/10"
 							>
 								<ArrowLeft size={20} />
 							</motion.button>
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
 							whileHover={{ scale: 1.05, rotateY: 5 }}
 							whileTap={{ scale: 0.95 }}
 							onClick={() => setShowFilters(!showFilters)}
-							className="flex items-center space-x-3 rounded-xl border-2 border-white/20 bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-2xl transition-all duration-300 hover:from-purple-700 hover:to-pink-700"
+							className="flex items-center space-x-3 rounded-xl border-2 border-white/30 bg-black/20 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/10"
 						>
 							<Filter size={20} />
 							<span>Filtros Avançados</span>
@@ -413,67 +413,68 @@ const Dashboard: React.FC = () => {
 							</motion.div>
 						)}
 
-						{dashboardData?.hasMore && (
-							<motion.div
-								className="flex items-center justify-center gap-4 border-t border-white/10 p-6 text-center"
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
+						<motion.div
+							className="flex items-center justify-center gap-4 border-t border-white/10 p-6 text-center"
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+						>
+							<motion.button
+								whileTap={{ scale: 0.95 }}
+								onClick={() =>
+									setFilters((prev) => ({ ...prev, page: prev.page - 1 }))
+								}
+								disabled={filters.page === 1}
+								className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-red-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-red-700 hover:to-pink-700 disabled:opacity-50"
 							>
-								<motion.button
-									whileTap={{ scale: 0.95 }}
-									onClick={() =>
-										setFilters((prev) => ({ ...prev, page: prev.page - 1 }))
-									}
-									disabled={filters.page === 1}
-									className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-red-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-red-700 hover:to-pink-700 disabled:opacity-50"
+								<motion.div
+									animate={{ x: [-2, 0, -2] }}
+									transition={{
+										duration: 2,
+										repeat: Infinity,
+										ease: 'easeInOut',
+									}}
 								>
-									<motion.div
-										animate={{ x: [-2, 0, -2] }}
-										transition={{
-											duration: 2,
-											repeat: Infinity,
-											ease: 'easeInOut',
-										}}
-									>
-										<ArrowLeft size={18} />
-									</motion.div>
-									<span>Anterior</span>
-								</motion.button>
+									<ArrowLeft size={18} />
+								</motion.div>
+								<span>Anterior</span>
+							</motion.button>
 
-								<div className="flex items-center space-x-3 rounded-xl border border-white/20 bg-gradient-to-r from-white/10 to-white/5 px-4 py-2 shadow-lg backdrop-blur-sm">
-									<span className="flex items-center space-x-1 text-sm font-semibold text-white/70">
-										Página:
-									</span>
-									<span className="rounded-lg py-1 text-lg font-bold text-white">
-										{dashboardData.page}
-									</span>
-									<span className="text-sm font-medium text-white/60">de</span>
-									<span className="rounded-lg py-1 text-lg font-bold text-white">
-										{dashboardData.total}
-									</span>
-								</div>
+							<div className="flex items-center space-x-3 rounded-xl border border-white/20 bg-gradient-to-r from-white/10 to-white/5 px-4 py-2 shadow-lg backdrop-blur-sm">
+								<span className="flex items-center space-x-1 text-sm font-semibold text-white/70">
+									Página:
+								</span>
+								<span className="rounded-lg py-1 text-lg font-bold text-white">
+									{dashboardData?.page}
+								</span>
+								<span className="text-sm font-medium text-white/60">de</span>
+								<span className="rounded-lg py-1 text-lg font-bold text-white">
+									{(dashboardData?.total || 0) / filters.limit}
+								</span>
+							</div>
 
-								<motion.button
-									whileTap={{ scale: 0.95 }}
-									onClick={() =>
-										setFilters((prev) => ({ ...prev, page: prev.page + 1 }))
-									}
-									className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-green-700 hover:to-emerald-700"
+							<motion.button
+								whileTap={{ scale: 0.95 }}
+								onClick={() =>
+									setFilters((prev) => ({ ...prev, page: prev.page + 1 }))
+								}
+								disabled={
+									filters.page === (dashboardData?.total || 0) / filters.limit
+								}
+								className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-green-700 hover:to-emerald-700 disabled:opacity-50"
+							>
+								<span>Próxima</span>
+								<motion.div
+									animate={{ x: [0, 2, 0] }}
+									transition={{
+										duration: 2,
+										repeat: Infinity,
+										ease: 'easeInOut',
+									}}
 								>
-									<span>Próxima</span>
-									<motion.div
-										animate={{ x: [0, 2, 0] }}
-										transition={{
-											duration: 2,
-											repeat: Infinity,
-											ease: 'easeInOut',
-										}}
-									>
-										<ArrowRight size={18} />
-									</motion.div>
-								</motion.button>
-							</motion.div>
-						)}
+									<ArrowRight size={18} />
+								</motion.div>
+							</motion.button>
+						</motion.div>
 					</div>
 				</motion.div>
 			</div>
