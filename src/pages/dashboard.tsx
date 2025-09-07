@@ -448,7 +448,7 @@ const Dashboard: React.FC = () => {
 								</span>
 								<span className="text-sm font-medium text-white/60">de</span>
 								<span className="rounded-lg py-1 text-lg font-bold text-white">
-									{(dashboardData?.total || 0) / filters.limit}
+									{Math.ceil((dashboardData?.total || 0) / filters.limit)}
 								</span>
 							</div>
 
@@ -458,7 +458,8 @@ const Dashboard: React.FC = () => {
 									setFilters((prev) => ({ ...prev, page: prev.page + 1 }))
 								}
 								disabled={
-									filters.page === (dashboardData?.total || 0) / filters.limit
+									filters.page ===
+									Math.ceil((dashboardData?.total || 0) / filters.limit)
 								}
 								className="flex min-w-[140px] items-center space-x-2 rounded-xl border-2 border-white/20 bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:from-green-700 hover:to-emerald-700 disabled:opacity-50"
 							>
