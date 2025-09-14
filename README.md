@@ -4,6 +4,10 @@ Um jogo moderno e interativo de **Pedra, Papel e Tesoura** construído com React
 
 <img src="https://i.imgur.com/wuxZ1CH.gif" />
 
+
+<img src="https://i.imgur.com/65SKYTO.gif" />
+
+
 ## 📸 Screenshots
 
 ![Lobby Principal](https://i.imgur.com/d2GINMV.png)
